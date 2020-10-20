@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{ this.description }}</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="legacy" class="example-full-width">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Full Name" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="example-full-width">
+    <mat-label>Course</mat-label>
+    <input matInput placeholder="Ex. PCM" formControlName="course" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    mat-raised-button
+    mat-dialog-close="save"
+    color="primary"
+    (click)="save()"
+  >
+    Save
+  </button>
+  <button
+    mat-raised-button
+    mat-dialog-close="close"
+    color="warn"
+    (click)="close()"
+  >
+    Close
+  </button>
+</mat-dialog-actions>
