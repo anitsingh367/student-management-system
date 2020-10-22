@@ -1,5 +1,7 @@
+import { StudentService } from './../service/student.service';
+import { StudentData } from './../models/student-data.interface';
 import { NewStudentComponent } from './../new-student/new-student.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
@@ -8,7 +10,15 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   styleUrls: ['./enroll-student.component.css'],
 })
 export class EnrollStudentComponent implements OnInit {
-  constructor(private dialog: MatDialog) {}
+
+  @Output() listUpdated = new EventEmitter<Boolean>();
+
+  students: StudentData[];
+
+  constructor(
+    private studentService: StudentService,
+    private dialog: MatDialog
+  ) {}
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -16,14 +26,19 @@ export class EnrollStudentComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      title: 'Add New Student'
-    }
+      title: 'Add New Student',
+    };
 
     this.dialog
       .open(NewStudentComponent, dialogConfig)
       .afterClosed()
-      .subscribe((result) => console.log(result));
-}
+      .subscribe((result) => {
+        // Notify the List Student Component to refresh list
+        this.listUpdated.emit(true);
+
+        console.log(result)
+      });
+  }
 
   ngOnInit(): void {}
 }

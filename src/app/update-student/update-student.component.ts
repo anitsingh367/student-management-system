@@ -5,47 +5,51 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-new-student',
-  templateUrl: './new-student.component.html',
-  styleUrls: ['./new-student.component.css'],
+  selector: 'app-update-student',
+  templateUrl: './update-student.component.html',
+  styleUrls: ['./update-student.component.css'],
 })
-export class NewStudentComponent implements OnInit {
-  students: StudentData[];
+export class UpdateStudentComponent implements OnInit {
+  student: StudentData = {
+    id: -1,
+    name: '',
+    course: ''
+  };
   form: FormGroup;
   title: string;
+  id: number;
   name: string;
   course: string;
 
   constructor(
     private studentService: StudentService,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<NewStudentComponent>,
+    private dialogRef: MatDialogRef<UpdateStudentComponent>,
     @Inject(MAT_DIALOG_DATA) data
   ) {
     this.title = data.title;
+    this.id = data.studentID;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.getStudents();
     this.form = this.fb.group({
+      id: [this.id, []],
       name: [this.name, []],
       course: [this.course, []],
     });
   }
-  save() {
-    this.dialogRef.close(this.form.value);
 
-    if (!this.form.value) {
-      return;
-    }
-
-    console.log('mai hoyega');
-
-    this.studentService.addStudent(this.form.value)
-    .subscribe((result) => {
-      console.log('Student added result: ', result)
-    });
+  getStudents(): void {
+    const id = this.id;
+    this.studentService.getStudent(id)
+      .subscribe(student => this.student = student);
   }
 
+  save() {
+    this.dialogRef.close(this.form.value);
+  }
+  
   close() {
     this.dialogRef.close();
   }

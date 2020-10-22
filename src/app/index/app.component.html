@@ -1,0 +1,9 @@
+<p>
+  <mat-toolbar>
+    <span>{{ title | uppercase }}</span>
+  </mat-toolbar>
+</p>
+
+<app-enroll-student (listUpdated)='listTable.refreshList()'></app-enroll-student>
+
+<app-list-student #listTable></app-list-student>
