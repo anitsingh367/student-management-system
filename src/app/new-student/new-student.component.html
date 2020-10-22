@@ -3,12 +3,12 @@
 <mat-dialog-content [formGroup]="form">
   <mat-form-field appearance="legacy" class="example-full-width">
     <mat-label>Name</mat-label>
-    <input matInput placeholder="Full Name" formControlName="name" />
+    <input [(ngModel)]="name" matInput placeholder="Full Name" formControlName="name" required/>
   </mat-form-field>
 
   <mat-form-field appearance="legacy" class="example-full-width">
     <mat-label>Course</mat-label>
-    <input matInput placeholder="Ex. PCM" formControlName="course" />
+    <input matInput [(ngModel)]="course" placeholder="Ex. PCM" formControlName="course" required/>
   </mat-form-field>
 </mat-dialog-content>
 

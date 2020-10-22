@@ -32,16 +32,14 @@ export class NewStudentComponent implements OnInit {
     });
   }
   save() {
-    this.dialogRef.close(this.form.value);
-
-    if (!this.form.value) {
-      return;
+    if (this.form.value.name && this.form.value.course) {
+      this.dialogRef.close(this.form.value);
+      this.studentService.addStudent(this.form.value).subscribe((result) => {
+        // console.log('Student added result: ', result)
+      });
+    } else {
+      alert('Please enter the required fields');
     }
-
-    this.studentService.addStudent(this.form.value)
-    .subscribe((result) => {
-      console.log('Student added result: ', result)
-    });
   }
 
   close() {

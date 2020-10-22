@@ -36,7 +36,7 @@ export class EnrollStudentComponent implements OnInit {
         // Notify the List Student Component to refresh list
         this.listUpdated.emit(true);
 
-        console.log(result)
+        // console.log(result)
       });
   }
 
