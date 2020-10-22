@@ -38,8 +38,6 @@ export class NewStudentComponent implements OnInit {
       return;
     }
 
-    console.log('mai hoyega');
-
     this.studentService.addStudent(this.form.value)
     .subscribe((result) => {
       console.log('Student added result: ', result)
